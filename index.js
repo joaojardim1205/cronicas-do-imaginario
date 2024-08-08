@@ -56,5 +56,3 @@ function goEtiopia() {
 function goSultão() {
     showText("Você foi para a direita e encontrou um monstro!");
 }
-
-console.log(startGame())
