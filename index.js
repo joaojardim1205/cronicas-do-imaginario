@@ -9,11 +9,14 @@ function startGame() {
     let irAmigo = prompt ("Ir com o amigo? (sim) (nao)");
 
     if(irAmigo == "sim"){
+        progresso =+ 14
+        alert("progresso: " + progresso)
         alert("você ganhou 1x empatia");
         alert("empatia ira ficar armazenada no inventario");
         alert("empatia ira influencia-lo no futuro");
         inventario.push("1x empatia");
 
+        
         acessoInv = prompt ("você deseja acessar o inventario? (sim) (nao)");
         if(acessoInv == "sim"){
             alert(inventario);
@@ -23,18 +26,21 @@ function startGame() {
 
         goFriend()
     } else if(irAmigo == "nao"){
+        progresso =+ 9
+        alert("progresso: " + progresso)
         alert("você ganhou 1x antipatia");
         alert("antipatia ira ficar armazenada no inventario");
         alert("antipatia ira influencia-lo no futuro");
         inventario.push("1x antipatia");
 
+        
         acessoInv = prompt ("você deseja acessar o inventario? (sim) (nao)");
         if(acessoInv == "sim"){
             alert(inventario);
         } else if(acessoInv == "nao"){
             alert("você nao acessou o inventario");
         }
-        
+
         goAlone()
     } else {
         alert("resposta invalida");
@@ -73,6 +79,8 @@ function goAlone() {
 }
 
 function goEtiopiaAlone () {
+    progresso =+ 21
+    alert("progresso: " + progresso)
     alert("Você decidiu ir embora para a etiopia");
     alert("você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policias. Tudo isso sozinho");
     alert("Após muito tempo e sofrimento, você consegue finalmente chegar na etiopia. Agora você decide se abrigar em uma loja de conveniencia");
@@ -82,10 +90,14 @@ function goEtiopiaAlone () {
     let UsarFone = prompt ("Você usa o telefone? (sim) (nao)");
 
     if(UsarFone == "sim"){
+        progresso =+ 15
+        alert("progresso: " + progresso)
         alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
         alert("Ao ligar, sua tia lhe fala que ela está em israel e que você pode ir para la. Ela fala que lá existe um abrigo onde você pode viver e ter a chance de conseguir uma vida melhor");
         alert("Apos ouvir oque ela disse, você com os olhos cheios de esperança decide ir para israel, em busca de algo melhor");
     } else if(UsarFone == "nao"){
+        progresso =+ 7
+        alert("progresso: " + progresso)
         alert("Você decidiu nao usar o telefone e ficar na etiopia, na loja de conveniencia")
         alert("Na etiopia, você passa por muitas dificuldades, tendo que trabalhar na loja de conveniencia durante horas e horas apenas para nao morrer de fome")
         alert("Apos exaustivos dias, você descobre do dono da loja que existe um local em israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor")
