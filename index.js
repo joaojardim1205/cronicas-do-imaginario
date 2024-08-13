@@ -1,215 +1,304 @@
-let progresso = 0
-let inventario = []
-let sanidade = 50
-let checkpoint
-let opcao
+let inventario = {};
+let progresso = 50;
+let sanidade = 50;
+let checkpoint;
+let opcao;
 
-alert("Bem vindo a historia de Tachlowini Gabriyesos!");
-function menuGame(menu) {
-    menu = prompt ("------------------- MENU ------------------- \n menu principal onde é possivel escolher uma função do jogo: \n [1] Historia \n [2] acessar progresso \n [3] acessar inventario \n [4] checkpoint \n [5] acessar sanidade ");
+alert("Bem-vindo à história de Tachlowini Gabriyesos!");
 
-    switch (menu){
-        case "1": 
-            historia();
-            break
-        case "2":
-            alert(`Progresso atual do jogo: ${progresso}%`);
-            menuGame();
-            break
-        case "3":
-            alert("Você acessou o inventario, nele é guardado itens coletados durante a historia");
-            alert(inventario);
-            menuGame();
-            break
-        case "4":
-            alert("Você acessou o checkpoint, nele é armazenado o ponto da historia que voce parou");
-            alert("Continuando a historia...");
-            checkpoint
-            break
-        case "5":
-            alert("Sanidade é um fator muito importante, caso sua sanidade chegue a 0, algo ruim acontecera. Sua sanidade inicial é 50");
-            alert(sanidade);
-            menuGame();
-            break
-        default:
-            alert("Opção invalida, tente novamente");
-            menuGame();
+function menuGame() {
+    let continuar = true;
+    while (continuar) {
+        let menu = prompt("--------- MENU ---------\nSelecione uma opção:\n[1] História\n[2] Acessar progresso\n[3] Acessar inventário\n[4] Checkpoint\n[5] Acessar sanidade\n[6] Sair do jogo");
+
+        switch (menu) {
+            case "1":
+                historia();
+                break;
+            case "2":
+                alert("O progresso é a sua vida, ela aumenta ou diminui dependendo de suas escolhas. Sua vida inicial é 50");
+                alert(`Vida: ${progresso}`);
+                break;
+            case "3":
+                alert("Você acessou o inventário, nele são guardados itens coletados durante a história");
+                mostrarInventario();
+                break;
+            case "4":
+                carregarCheckpoint();
+                break;
+            case "5":
+                alert("Sanidade é um fator muito importante, caso sua sanidade chegue a 0, algo ruim acontecerá. Sua sanidade inicial é 50");
+                alert(`Sua sanidade: ${sanidade}`);
+                break;
+            case "6":
+                continuar = false;
+                alert("Obrigado por jogar!");
+                break;
+            default:
+                alert("Opção inválida, tente novamente");
+        }
     }
 }
 
-function historia(irAmigo) {
-    alert("Seu nome é Tachlowini, atualmente possui 12 anos e mora em Eritreia, sua terra natal.");
-    alert("Como Eritreia é um pais com uma taxa de pobreza muito alta, você depois de muito pensar decide ir embora em busca de uma vida melhor.");
-    alert("Você possui um amigo, seu unico melhor amigo. Antes de sair, você precisa tomar uma decisão muito importante. Chamar o seu amigo e ir embora com ele, ou ir sozinho.");
-    irAmigo = prompt("Ir com o amigo? (sim) (nao)");
+function historia() {
+    alert("Seu nome é Tachlowini, atualmente possui 12 anos e mora na Eritreia, sua terra natal. Um país localizado na África.");
+    alert("Como a Eritreia é um país com uma taxa de pobreza muito alta, você, depois de muito pensar, decide ir embora em busca de uma vida melhor.");
+    alert("Você possui um amigo, seu único melhor amigo. Antes de sair, você precisa tomar uma decisão muito importante: chamar o seu amigo e ir embora com ele ou ir sozinho.");
 
-    if(irAmigo === "sim"){
-        progresso =+ 14
-        alert(`progresso de vida: ${progresso}%`);
-        alert("Você ganhou 1x empatia");
-        alert("Empatia irá ficar armazenada no inventario. Isso irá afeta-lo no futuro");
-        inventario.push("1x empatia");
-        opcao = prompt("Caso você queria acessar o menu, selecione o numero 0");
-        if (opcao == "0"){
-            menuGame()
-        } else{
-            alert("Continuando a historia...")
-        }
+    let irAmigo = prompt("Deseja ir até o amigo? (sim) (nao)");
 
-        checkpoint = goFriend()
-        goFriend()
+    if (irAmigo === "sim") {
+        progresso += 10;
+        alert(`Vida: ${progresso}`);
+        adicionarAoInventario("Empatia", 1);
+        alert("Você ganhou 1x Empatia");
+        alert("Empatia será armazenada no inventário. Isso irá afetá-lo no futuro");
 
-    } else if(irAmigo === "nao"){
-        progresso =+ 9
-        alert(`Progresso de vida: ${progresso}%`);
-        alert("Você ganhou 1x antipatia");
-        alert("Antipatia irá ficar armazenada no inventario. Isso irá afeta-lo no futuro");
-        inventario.push("1x antipatia");
-        opcao = prompt("Caso você queria acessar o menu, selecione o numero 0");
-        if (opcao == "0"){
-            menuGame()
-        } else{
-            alert("Continuando a historia...")
-        }
+        salvarCheckpoint("goFriend");
+        perguntarSeVoltarMenu();
+        goFriend();
 
-        checkpoint = goAlone()
-        goAlone()
+    } else if (irAmigo === "nao") {
+        progresso -= 20;
+        alert(`Vida: ${progresso}`);
+        adicionarAoInventario("Antipatia", 1);
+        alert("Você ganhou 1x Antipatia");
+        alert("Antipatia será armazenada no inventário. Isso irá afetá-lo no futuro");
+        
+        salvarCheckpoint("goAlone");
+        perguntarSeVoltarMenu();
+        goAlone();
 
-    } else{
-        alert("Opção invalida, tente novamente");
+    } else {
+        alert("Opção inválida, tente novamente");
         historia();
     }
-       
 }
 
-function goFriend(irLocal) {
-    alert("Você decidiu que irá atras de seu amigo, então você pega itens basicos e vai ate a casa dele.");
-    alert("Ao chegar na casa dele, você rapidamente o chama e o convida para ir com você. Ele prontamente responde que aceita e logo em seguida vão embora de seu pais natal.");
-    alert("Agora, os dois tem que decidir entre ir para a etiopia ou para o sultão, dois paises vizinhos de Eritreia.");
-    irLocal = prompt("Para onde ir? (etiopia) (sultao)");
+function goFriend() {
+    alert("Você decidiu ir atrás de seu amigo, então você pega itens básicos e vai até a casa dele.");
+    alert("Ao chegar na casa dele, você rapidamente o chama e o convida para ir com você. Ele prontamente responde que aceita e logo em seguida vão embora de seu país natal.");
 
-    if(irLocal === "etiopia"){
-        goEtiopia()
-    } else if (irLocal === "sultao"){
-        goSultão()
-    } else{
-        alert("Opção invalida, tente novamente");
-    }
-    
-}
+    perguntarSeVoltarMenu();
 
-function goAlone(irLocal) {
-    alert("Você decidiu não chamar seu amigo e ir sozinho. Então você prontamente pega suas coisas e vai embora de seu pais natal.");
-    alert("Agora, você precisa decidir entre ir para a etiopia ou para o sultão, dois paises vizinhos de Eritreia");
-    irLocal = prompt("Para onde ir? (etiopia) (sultao)");
+    alert("Agora, os dois têm que decidir entre ir para a Etiópia ou para o Sudão, dois países vizinhos da Eritreia.");
+    let irLocal = prompt("Para onde ir? (etiopia) (sudao)");
 
-    if(irLocal === "etiopia"){
-        goEtiopiaAlone()
-    } else if(irLocal === "sultao"){
-        goSultãoAlone()
-    } else{
-        alert("Opção invalida, tente novamente");
+    if (irLocal === "etiopia") {
+        salvarCheckpoint("goEtiopia");
+        goEtiopia();
+    } else if (irLocal === "sudao") {
+        salvarCheckpoint("goSudao");
+        goSudao();
+    } else {
+        alert("Opção inválida, tente novamente");
+        goFriend();
     }
 }
 
-function goEtiopiaAlone () {
-    progresso =+ 21
-    alert(`Progresso de vida: ${progresso}%`);
-    alert("Você decide ir embora para a etiopia");
-    alert("você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policias. Tudo isso sozinho");
-    alert("Após muito tempo e sofrimento, você consegue finalmente chegar na etiopia. Agora você decide se abrigar em uma loja de conveniencia");
-    alert("Como você passou muito tempo sozinho você acabou perdendo 10x sanidade");
-    sanidade =- 10
-    opcao = prompt("Caso você queria acessar o menu, selecione o numero 0");
-        if (opcao == "0"){
-            menuGame()
-        } else{
-            alert("Continuando a historia...")
-        }
+function goAlone() {
+    alert("Você decidiu não chamar seu amigo e ir sozinho. Então você prontamente pega suas coisas e vai embora de seu país natal.");
 
-    checkpoint = telefoneAlone()
-    telefoneAlone()
+    perguntarSeVoltarMenu();
+
+    alert("Agora, você precisa decidir entre ir para a Etiópia ou para o Sudão, dois países vizinhos da Eritreia.");
+
+    let irLocal = prompt("Para onde ir? (etiopia) (sudao)");
+
+    if (irLocal === "etiopia") {
+        salvarCheckpoint("goEtiopiaAlone")
+        goEtiopiaAlone();
+    } else if (irLocal === "sudao") {
+        salvarCheckpoint("goSudaoAlone")
+        goSudaoAlone();
+    } else {
+        alert("Opção inválida, tente novamente");
+        goAlone();
+    }
 }
 
-function telefoneAlone(UsarFone){
-    alert("Na loja de conveniencia, você pode utilizar o telefone para contatar um parente");
-    UsarFone = prompt("Você usa o telefone? (sim) (nao)");
+function goEtiopiaAlone() {
+    progresso += 10;
+    alert(`Vida: ${progresso}`);
+    alert("Você decide ir embora para a Etiópia");
+    alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Tudo isso sozinho");
+    alert("Após muito tempo e sofrimento, você consegue finalmente chegar na Etiópia. Agora você decide se abrigar em uma loja de conveniência");
+    alert("Como você passou muito tempo sozinho, você acabou perdendo 10x sanidade");
+    sanidade -= 15;
 
-    if(UsarFone === "sim"){
-        progresso =+ 15
-        alert(`Progresso de vida: ${progresso}%`);
+    perguntarSeVoltarMenu();
+
+    salvarCheckpoint("telefoneAlone");
+    telefoneAlone();
+}
+
+function telefoneAlone() {
+    alert("Na loja de conveniência, você pode utilizar o telefone para contatar um parente");
+
+    let UsarFone = prompt("Você usa o telefone? (sim) (nao)");
+
+    if (UsarFone === "sim") {
+        progresso += 10;
+        alert(`Vida: ${progresso}`);
         alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
-        alert("Ao ligar, sua tia lhe fala que ela está em israel e que você pode ir para la. Ela fala que lá existe um abrigo onde você pode viver e ter a chance de conseguir uma vida melhor");
-        alert("Apos ouvir oque ela disse, você com os olhos cheios de esperança decide ir para israel, em busca de algo melhor");
-    } else if(UsarFone === "nao"){
-        progresso =+ 7
-        alert(`Progresso de vida:  ${progresso}%`)
-        alert("Você decidiu nao usar o telefone e ficar na etiopia, na loja de conveniencia")
-        alert("Na etiopia, você passa por muitas dificuldades, tendo que trabalhar na loja de conveniencia durante horas e horas apenas para nao morrer de fome")
-        alert("Apos exaustivos dias, você descobre do dono da loja que existe um local em israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor")
-        alert("Apos descobrir isso, você com os olhos cheios de esperança decide ir para israel, em busca de algo melhor")
-    } else{
-        alert("Opção invalida, tente novamente");
+        alert("Ao ligar, sua tia lhe fala que ela está em Israel e que você pode ir para lá. Ela diz que lá existe um abrigo onde você pode viver e ter a chance de conseguir uma vida melhor");
+        alert("Após ouvir o que ela disse, você com os olhos cheios de esperança decide ir para Israel, em busca de algo melhor");
+    } else if (UsarFone === "nao") {
+        progresso -= 10;
+        alert(`Vida: ${progresso}`);
+        alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
+        alert("Na Etiópia, você passa por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
+        alert("Após exaustivos dias, você descobre com o dono da loja que existe um local em Israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor");
+        alert("Após descobrir isso, você com os olhos cheios de esperança decide ir para Israel, em busca de algo melhor");
+    } else {
+        alert("Opção inválida, tente novamente");
         telefoneAlone();
     }
-}
-
-function goSultãoAlone() {
-    
 }
 
 function goEtiopia() {
-    progresso =+ 37
-    alert(`Progresso de vida: ${progresso}%`);
-    alert("Você decide ir embora com seu amigo para a etiopia");
-    alert("você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policias. Graças ao seu amigo, você aguenta firmemente.");
-    alert("Após um longo periodo, você consegue finalmente chegar na etiopia. Agora você decide procurar abrigo em uma loja de conveniencia");
-    alert("Pelo fato de voce ter a companhia de seu amigo, você nao perdeu nenhuma sanidade");
-    opcao = prompt("Caso você queria acessar o menu, selecione o numero 0");
-        if (opcao == "0"){
-            menuGame()
-        } else{
-            alert("Continuando a historia...")
-        }
+    progresso += 15;
+    alert(`Vida: ${progresso}`);
+    alert("Você decide ir embora com seu amigo para a Etiópia");
+    alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Graças ao seu amigo, você aguenta firmemente.");
+    alert("Após um longo período, você consegue finalmente chegar na Etiópia. Agora você decide procurar abrigo em uma loja de conveniência");
+    alert("Pelo fato de você ter a companhia de seu amigo, você não perdeu nenhuma sanidade");
 
-        checkpoint = telefone()
-        telefone()
-    
+    perguntarSeVoltarMenu();
+
+    salvarCheckpoint("telefone");
+    telefone();
 }
 
-function telefone(UsarFone){
-    alert("Na loja de conveniencia, você pode utilizar o telefone para contatar um parente");
-    UsarFone = prompt ("Você usa o telefone? (sim) (nao)");
+function telefone() {
+    alert("Na loja de conveniência, você pode utilizar o telefone para contatar um parente");
 
-    if(UsarFone === "sim"){
-        progresso =+ 15
-        alert(`progresso de vida: ${progresso}%`);
+    let UsarFone = prompt("Você usa o telefone? (sim) (nao)");
+
+    if (UsarFone === "sim") {
+        progresso += 10;
+        alert(`Vida: ${progresso}`);
         alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
-        alert("Ao ligar, sua tia lhe fala que ela está em israel e que você e seu amgio podem ir para la. Ela fala que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
-        alert("Apos ouvir oque ela disse, vocês dois com os olhos cheios de esperança decidem ir para israel, em busca de algo melhor");
-    } else if(UsarFone === "nao"){
-        progresso =+ 7
-        alert(`Progresso de vida: ${progresso}%`)
-        alert("Você decidiu nao usar o telefone e ficar na etiopia, na loja de conveniencia")
-        alert("Na etiopia, você e seu amigo passam por muitas dificuldades, tendo que trabalhar na loja de conveniencia durante horas e horas apenas para nao morrer de fome")
-        alert("Apos exaustivos dias, você descobre do dono da loja que existe um local em israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor")
-        alert("Apos descobrir isso, você rapidamente vai contar para seu amigo e com os olhos cheios de esperança vocês dois decidem ir para israel, em busca de algo melhor")
+        alert("Ao ligar, sua tia lhe fala que ela está em Israel e que você e seu amigo podem ir para lá. Ela diz que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
+        alert("Após ouvir o que ela disse, vocês dois com os olhos cheios de esperança decidem ir para Israel, em busca de algo melhor");
+    } else if (UsarFone === "nao") {
+        progresso -= 10;
+        alert(`Vida: ${progresso}`);
+        alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
+        alert("Na Etiópia, você e seu amigo passam por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
+        alert("Após exaustivos dias, você descobre com o dono da loja que existe um local em Israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor");
+        alert("Após descobrir isso, você rapidamente vai contar para seu amigo e com os olhos cheios de esperança vocês dois decidem ir para Israel, em busca de algo melhor");
     } else {
-        alert("Opção invalida, tente novamente");
-        telefoneAlone();
+        alert("Opção inválida, tente novamente");
+        telefone();
     }
 }
 
-function goSultão() {
+function goSudao() {
+    alert("Você decide ir para o Sudão com seu amigo. A jornada é longa e árdua.");
+    progresso += 15;
+    sanidade += 5;
+    alert(`Vida: ${progresso}, Sanidade: ${sanidade}`);
+    // Implementar lógica para a história após chegar ao Sudão
+}
+
+function goSudaoAlone() {
+    alert("Você decide ir para o Sudão sozinho. A jornada é difícil e solitária.");
+    progresso += 5;
+    sanidade -= 10;
+    alert(`Vida: ${progresso}, Sanidade: ${sanidade}`);
+    // Implementar lógica para a história após chegar ao Sudão
+}
+
+function goIsrael() {
+
+}
+
+function goIsraelAlone() {
     
 }
 
-function goIsrael(){
-
+function salvarCheckpoint(ponto) {
+    checkpoint = {
+        progresso: progresso,
+        inventario: {...inventario},
+        sanidade: sanidade,
+        ponto: ponto
+    };
 }
 
-function goIsraelAlone(){
-    
+function carregarCheckpoint() {
+    if (checkpoint) {
+        progresso = checkpoint.progresso;
+        inventario = {...checkpoint.inventario};
+        sanidade = checkpoint.sanidade;
+        alert("Checkpoint carregado com sucesso!");
+
+        switch (checkpoint.ponto) {
+            case "goFriend":
+                goFriend();
+                break;
+            case "goEtiopia":
+                goEtiopia();
+                break;
+            case "goSudao":
+                goSudao();
+                break;
+            case "goAlone":
+                goAlone();
+                break;
+            case "goEtiopiaAlone":
+                goEtiopiaAlone();
+                break;
+            case "goSudaoAlone":
+                goSudaoAlone();
+                break;
+            case "telefoneAlone":
+                telefoneAlone();
+                break;
+            case "telefone":
+                telefone();
+                break;
+            default:
+                alert("Checkpoint inválido. Retornando ao menu principal.");
+                menuGame();
+        }
+    } else {
+        alert("Nenhum checkpoint salvo ainda.");
+        menuGame();
+    }
 }
 
-menuGame()
+function perguntarSeVoltarMenu() {
+    let opcaoValida = false;
+    while (!opcaoValida) {
+        opcao = prompt("Caso queira acessar o menu, selecione o número 0. \nCaso queira continuar, aperte a tecla ENTER.");
+        if (opcao == "0") {
+            menuGame();
+            opcaoValida = true;
+        } else if (opcao === "") {
+            alert("Continuando a história...");
+            opcaoValida = true;
+        } else {
+            alert("Opção inválida, tente novamente");
+        }
+    }
+}
+
+function adicionarAoInventario(item, quantidade) {
+    if (inventario[item]) {
+        inventario[item] += quantidade;
+    } else {
+        inventario[item] = quantidade;
+    }
+}
+
+function mostrarInventario() {
+    let mensagem = "Inventário:\n";
+    for (let item in inventario) {
+        mensagem += `${item}: ${inventario[item]}\n`;
+    }
+    alert(mensagem);
+}
+
+menuGame();
