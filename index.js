@@ -120,8 +120,8 @@ function goEtiopiaAlone() {
     alert("Você decide ir embora para a Etiópia");
     alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Tudo isso sozinho");
     alert("Após muito tempo e sofrimento, você consegue finalmente chegar na Etiópia. Agora você decide se abrigar em uma loja de conveniência");
-    alert("Como você passou muito tempo sozinho, você acabou perdendo 10x sanidade");
-    sanidade -= 15;
+    alert("Como você passou muito tempo sozinho, você acabou perdendo 10x de sanidade");
+    sanidade -= 10;
 
     perguntarSeVoltarMenu();
 
@@ -146,9 +146,13 @@ function goEtiopia() {
 function goSudaoAlone(){
     progresso -= 10;
     alert(`Vida: ${progresso}`);
-    alert("Você decide ir sozinho para o Sudão.");
+    alert("Você decide ir para o Sudão.");
     alert("Você caminha durante dias sob o sol escaldante, sobrevivendo com poucas migalhas de comida e evitando policiais.");
+    alert("você precisa atravesar o deserto, durante dias e noites a pé.")
     alert("Finalmente, você chega ao Sudão, exausto e com sede.");
+    alert("Logo apos chegar no sudão, você decide procurar abrigo. Após caminhar por um tempo, você acha uma loja de conveniencia, então você entra nela.");
+    alert("Pelo fato de você ter passado por tudo isso sozinho, você acabou perdendo 20x de sanidade.");
+    sanidade -= 20;
     
     perguntarSeVoltarMenu();
     
@@ -157,11 +161,13 @@ function goSudaoAlone(){
 }
 
 function goSudao() {
-    progresso -= 10;
+    progresso -= 5;
     alert(`Vida: ${progresso}`);
     alert("Você e seu amigo decidem ir embora para o Sudão");
     alert("Vocês caminham durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Com a ajuda do seu amigo, vocês conseguem aguentar.");
-    alert("Após um longo período, vocês conseguem finalmente chegar no Sudão. Agora vocês decidem procurar abrigo em uma loja de conveniência");
+    alert("Após um longo período, vocês conseguem finalmente chegar no Sudão. Agora vocês decidem procurar abrigo");
+    alert("Vocês procuram por um tempo e descobrem uma loja de conveniencia onde podem se abrigar. Então os dois decidem ficar na loja");
+    alert("Pelo fato de você ter a companhia de seu amigo, você não perdeu nenhuma sanidade");
 
     perguntarSeVoltarMenu();
 
@@ -172,7 +178,7 @@ function goSudao() {
 
 
 function telefoneEtiopiaAlone() {
-    alert("Na loja de conveniência, você pode utilizar o telefone para contatar um parente");
+    alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
     let UsarFone = prompt("Você usa o telefone? (sim) (nao)");
 
@@ -185,7 +191,7 @@ function telefoneEtiopiaAlone() {
         salvarCheckpoint("goIsraelAlone");
         goIsraelAlone();
     } else if (UsarFone === "nao") {
-        progresso -= 10;
+        progresso -= 5;
         alert(`Vida: ${progresso}`);
         alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
         alert("Na Etiópia, você passa por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
@@ -200,7 +206,7 @@ function telefoneEtiopiaAlone() {
 }
 
 function telefoneEtiopia() {
-    alert("Na loja de conveniência, você pode utilizar o telefone para contatar um parente");
+    alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
     let UsarFone = prompt("Você usa o telefone? (sim) (nao)");
 
@@ -213,7 +219,7 @@ function telefoneEtiopia() {
         salvarCheckpoint("goIsrael");
         goIsrael();
     } else if (UsarFone === "nao") {
-        progresso -= 10;
+        progresso -= 5;
         alert(`Vida: ${progresso}`);
         alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
         alert("Na Etiópia, você e seu amigo passam por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
@@ -228,7 +234,7 @@ function telefoneEtiopia() {
 }
 
 function telefoneSudaoAlone(){
-    alert("Na loja de conveniência, você pode usar o telefone para contatar um parente.");
+    alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
     let usarFone = prompt("Você usa o telefone? (sim) (nao)");
 
@@ -237,15 +243,16 @@ function telefoneSudaoAlone(){
         alert(`Vida: ${progresso}`);
         alert("Você decide ligar para sua tia, que sempre cuidou de você.");
         alert("Sua tia diz que está em Israel e que há um abrigo onde você pode viver e ter uma chance de uma vida melhor.");
-        alert("Com esperança renovada, você decide ir para Israel.");
+        alert("Com esperança renovada, você decide seguir para Israel.");
         salvarCheckpoint("goIsraelAlone");
         goIsraelAlone();
     } else if (usarFone === "nao") {
-        progresso -= 10;
+        progresso -= 5;
         alert(`Vida: ${progresso}`);
         alert("Você decide não usar o telefone e permanecer no Sudão.");
         alert("No Sudão, você enfrenta muitas dificuldades, trabalhando na loja de conveniência para sobreviver.");
-        alert("Após um tempo, você descobre sobre o abrigo em Israel e decide ir para lá em busca de uma vida melhor.");
+        alert("Após um tempo, você descobre sobre um abrigo em Israel. Um abrigo famoso onde varios refugiados vão.");
+        alert("Depois de ter descoberto isso, você decide ir para lá em busca de uma vida melhor.");
         salvarCheckpoint("goIsraelAlone");
         goIsraelAlone();
     } else {
@@ -255,7 +262,7 @@ function telefoneSudaoAlone(){
 }
 
 function telefoneSudao() {
-    alert("Na loja de conveniência, vocês podem utilizar o telefone para contatar um parente");
+    alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
     let UsarFone = prompt("Vocês usam o telefone? (sim) (nao)");
 
@@ -268,13 +275,13 @@ function telefoneSudao() {
         salvarCheckpoint("goIsraelSudao");
         goIsrael();
     } else if (UsarFone === "nao") {
-        progresso -= 10;
+        progresso -= 5;
         alert(`Vida: ${progresso}`);
-        alert("Vocês decidiram não usar o telefone e ficar no Sudão, na loja de conveniência");
-        alert("No Sudão, vocês passam por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
-        alert("Após exaustivos dias, vocês descobrem com o dono da loja que existe um local em Israel que vocês podem ficar e possivelmente ter uma chance de viver uma vida melhor");
-        alert("Após descobrir isso, vocês com os olhos cheios de esperança decidem ir para Israel, em busca de algo melhor");
-        salvarCheckpoint("goIsraelSudao");
+        alert("Você decide não usar o telefone e permanecer no Sudão com o seu amigo.");
+        alert("No Sudão, vocês dois enfrentam muitas dificuldades, trabalhando na loja de conveniência para sobreviver.");
+        alert("Após um tempo, você descobre sobre um abrigo em Israel. Um abrigo famoso onde varios refugiados vão.");
+        alert("Depois de ter descoberto isso, você vai falar coom o seu amigo e decidem que irão para lá em busca de uma vida melhor.");
+        salvarCheckpoint("goIsrael");
         goIsrael();
     } else {
         alert("Opção inválida, tente novamente");
@@ -283,14 +290,15 @@ function telefoneSudao() {
 }
 
 function goIsrael() {
-    progresso += 20;
+    progresso += 15;
     alert(`Vida: ${progresso}`);
     alert("Você e seu amigo finalmente chegam em Israel");
     alert("Agora, vocês dois podem se hospedar no abrigo que sua tia falou");
 
     perguntarSeVoltarMenu();
 
-    alert("O tempo passa, você consegue se estabilizar no país, porém, se você e seu amigo quiserem morar definitivamente em Israel, é necessário tentar conseguir um asilo");
+    alert("Vocês agora finalmente podem descansar, mas esse descanso nao dura muito. Como vocês dois sao refugiados menores de idade e sem nenhum parente ou responsavel, vocês são classificados como requerente de asilo e são enviados para um centro de detensão.");
+    alert("Lá, vocês dois são analisados clinicamente e são levados para")
     let tentativaAsilo = prompt("Vocês irão pedir asilo? (sim) (nao)");
 
     if (tentativaAsilo === "sim") {
