@@ -3,13 +3,14 @@ let progresso = 50;
 let sanidade = 50;
 let checkpoint;
 let opcao;
+let treinamento = true;
 
 alert("Bem-vindo à história de Tachlowini Gabriyesos!");
 
 function menuGame() {
     let continuar = true;
     while (continuar) {
-        let menu = prompt("--------- MENU ---------\nSelecione uma opção:\n[1] História\n[2] Acessar progresso\n[3] Acessar inventário\n[4] Acessar sanidade\n[5] Checkpoint\n[6] Sair do jogo");
+        let menu = prompt("--------- MENU ---------\nSelecione uma opção:\n[1] História\n[2] Acessar progresso\n[3] Acessar inventário\n[4] Acessar sanidade\n[5] Checkpoint\n6] Treinamento\n[7] Sair do jogo");
 
         switch (menu) {
             case "1":
@@ -31,6 +32,13 @@ function menuGame() {
                 carregarCheckpoint();
                 break;
             case "6":
+                if(treinamento = true){
+                    alert("Você ainda não desbloqueiou o treinamento, tente outra opção");
+                } else if (treinamento = false){
+                    treinamentoMenu();
+                }
+                break;
+            case "7":
                 continuar = false;
                 alert("Obrigado por jogar!");
                 break;
@@ -122,6 +130,7 @@ function goEtiopiaAlone() {
     alert("Após muito tempo e sofrimento, você consegue finalmente chegar na Etiópia. Agora você decide se abrigar em uma loja de conveniência");
     alert("Como você passou muito tempo sozinho, você acabou perdendo 10x de sanidade");
     sanidade -= 10;
+    alert(`Sanidade: ${sanidade}`);
 
     perguntarSeVoltarMenu();
 
@@ -134,6 +143,9 @@ function goEtiopia() {
     alert(`Vida: ${progresso}`);
     alert("Você decide ir embora com seu amigo para a Etiópia");
     alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Graças ao seu amigo, você aguenta firmemente.");
+    alert("Por essa experiencia dificil, você acaba perdendo 5x sanidade")
+    sanidade -= 5;
+    alert(`Sanidade: ${sanidade}`);
     alert("Após um longo período, você consegue finalmente chegar na Etiópia. Agora você decide procurar abrigo em uma loja de conveniência");
     alert("Pelo fato de você ter a companhia de seu amigo, você não perdeu nenhuma sanidade");
 
@@ -152,7 +164,8 @@ function goSudaoAlone(){
     alert("Finalmente, você chega ao Sudão, exausto e com sede.");
     alert("Logo apos chegar no sudão, você decide procurar abrigo. Após caminhar por um tempo, você acha uma loja de conveniencia, então você entra nela.");
     alert("Pelo fato de você ter passado por tudo isso sozinho, você acabou perdendo 20x de sanidade.");
-    sanidade -= 20;
+    sanidade -= 15;
+    alert(`Sanidade: ${sanidade}`);
     
     perguntarSeVoltarMenu();
     
@@ -166,6 +179,9 @@ function goSudao() {
     alert("Você e seu amigo decidem ir embora para o Sudão");
     alert("Vocês caminham durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Com a ajuda do seu amigo, vocês conseguem aguentar.");
     alert("Após um longo período, vocês conseguem finalmente chegar no Sudão. Agora vocês decidem procurar abrigo");
+    alert("Por essa experiencia dificil, você acaba perdendo 5x sanidade")
+    sanidade -= 5;
+    alert(`Sanidade: ${sanidade}`);
     alert("Vocês procuram por um tempo e descobrem uma loja de conveniencia onde podem se abrigar. Então os dois decidem ficar na loja");
     alert("Pelo fato de você ter a companhia de seu amigo, você não perdeu nenhuma sanidade");
 
@@ -295,28 +311,19 @@ function goIsrael() {
     alert("Você e seu amigo finalmente chegam em Israel");
     alert("Agora, vocês dois podem se hospedar no abrigo que sua tia falou");
 
-    perguntarSeVoltarMenu();
-
     alert("Vocês agora finalmente podem descansar, mas esse descanso nao dura muito. Como vocês dois sao refugiados menores de idade e sem nenhum parente ou responsavel, vocês são classificados como requerente de asilo e são enviados para um centro de detensão.");
-    alert("Lá, vocês dois são analisados clinicamente e são levados para")
-    let tentativaAsilo = prompt("Vocês irão pedir asilo? (sim) (nao)");
+    alert("Lá, vocês dois são analisados clinicamente e são inscrito no Hadassah Neurim Youth Village, um internato para jovens em risco ao norte de Tel Aviv.");
+    alert("Nesse internato, vocês demoram um tempo para poder se adaptar, mas com o seu amigo, no final da tudo certo.");
+    alert("Lá, você descobre um programa de corrida diregido pelo professor Alemayu Faloro. Você fica realmente interessado nesse curso e decide que irá tenta-lo.");
+    alert("Vocês dois passam bastante tempo nesse internato até termina-lo, agora vocês sao oficialmente residentes de israel.");
+    alert("Durante todo esse tempo, você se apaixonou ainda mais com atletismo e decidiu que irá fazer isso profissionalmente");
+    alert("O seu amigo tambem nao ficou para tras e decidiu que irá seguir no ramo de arte. Por fim vocês dão um abraço um no outro e seguem rumos diferentes.");
+    alert("Agora você vai começar a treinar profissionalmente com o seu professor");
 
-    if (tentativaAsilo === "sim") {
-        progresso += 30;
-        alert(`Vida: ${progresso}`);
-        alert("Vocês dois decidem pedir asilo para morar em Israel");
-        alert("Depois de um longo período de avaliação, vocês dois conseguem o asilo e podem morar legalmente em Israel");
-        alert("Vocês dois se sentem muito felizes e finalmente conseguem alcançar uma boa condição de vida");
-    } else if (tentativaAsilo === "nao") {
-        progresso -= 15;
-        alert(`Vida: ${progresso}`);
-        alert("Vocês dois decidem não pedir asilo e viverem no país ilegalmente");
-        alert("Vocês dois passam por muitas dificuldades e sempre vivem no medo de serem pegos");
-        alert("Mesmo assim, vocês dois continuam lutando para tentar ter uma vida melhor");
-    } else {
-        alert("Opção inválida, tente novamente");
-        goIsrael();
-    }
+    salvarCheckpoint("treinamentoMenu");
+
+    perguntarSeVoltarMenu();
+    treinamentoMenu();
 }
 
 function goIsraelAlone() {
@@ -325,27 +332,104 @@ function goIsraelAlone() {
     alert("Você finalmente chega em Israel");
     alert("Agora, você pode se hospedar no abrigo que sua tia falou");
 
+    alert("Você agora finalmente pode descansar, mas esse descanso nao dura muito. Como você é refugiado menore de idade e sem nenhum parente ou responsavel, você é classificado como requerente de asilo e é enviado para um centro de detensão.");
+    alert("Lá, você é analisado clinicamente e inscrito no Hadassah Neurim Youth Village, um internato para jovens em risco ao norte de Tel Aviv.");
+    alert("Nesse internato, você demora bastante tempo para poder se adaptar, sem o seu amgio tudo fica mais dificil. Por causa disso você acabou perdendo 10x sanidade");
+    sanidade -= 10;
+    alert(`Sanidade: ${sanidade}`);
+    alert("Depois de muita luta para se encaixar lá, você acaba descobrindo um programa de corrida diregido pelo professor Alemayu Faloro. Você fica realmente interessado nesse curso e decide que irá tenta-lo.");
+    alert("Você passa bastante tempo nesse internato até termina-lo, agora você é oficialmente residentes de israel.");
+    alert("Durante todo esse tempo, você se apaixonou ainda mais com atletismo e decidiu que irá fazer isso profissionalmente");
+    alert("Agora você vai começar a treinar profissionalmente com o seu professor");
+
+    salvarCheckpoint("treinamentoMenu");
+    
     perguntarSeVoltarMenu();
+    treinamentoMenu();
+}
 
-    alert("O tempo passa, você consegue se estabilizar no país, porém, se você quiser morar definitivamente em Israel, é necessário tentar conseguir um asilo");
-    let tentativaAsilo = prompt("Você irá pedir asilo? (sim) (nao)");
+function treinamentoMenu(){
+    treinamento = false;
 
-    if (tentativaAsilo === "sim") {
-        progresso += 20;
-        alert(`Vida: ${progresso}`);
-        alert("Você decide pedir asilo para morar em Israel");
-        alert("Depois de um longo período de avaliação, você consegue o asilo e pode morar legalmente em Israel");
-        alert("Você se sente muito feliz e finalmente consegue alcançar uma boa condição de vida");
-    } else if (tentativaAsilo === "nao") {
-        progresso -= 15;
-        alert(`Vida: ${progresso}`);
-        alert("Você decide não pedir asilo e viver no país ilegalmente");
-        alert("Você passa por muitas dificuldades e sempre vive no medo de ser pego");
-        alert("Mesmo assim, você continua lutando para tentar ter uma vida melhor");
-    } else {
-        alert("Opção inválida, tente novamente");
-        goIsraelAlone();
+    class Character {
+        constructor(name) {
+            this.name = name;
+            this.level = 1;
+            this.experience = 0;
+            this.skills = {};
+        }
+    
+        addSkill(skillName) {
+            if (!this.skills[skillName]) {
+                this.skills[skillName] = 1;
+            }
+        }
+    
+        trainSkill(skillName, exp) {
+            if (this.skills[skillName]) {
+                this.skills[skillName] += exp;
+                this.experience += exp;
+                this.checkLevelUp();
+                alert(`${this.name} treinou ${skillName} e ganhou ${exp} pontos de experiência.`);
+            } else {
+                alert(`${skillName} não existe no conjunto de habilidades do personagem.`);
+            }
+        }
+    
+        checkLevelUp() {
+            let requiredExp = this.level * 100;
+            if (this.experience >= requiredExp) {
+                this.level++;
+                this.experience -= requiredExp;
+                console.log(`${this.name} subiu para o nível ${this.level}!`);
+            }
+        }
     }
+    
+    function chooseTrainingOption(character) {
+        let trainingOption = prompt("Escolha uma habilidade para treinar: (1) Corpo, (2) Mente, (3) Corrida, (4) Pulo, (5) Dormir");
+        let expGained = Math.floor(Math.random() * 50) + 10; 
+    
+        switch (trainingOption) {
+            case '1':
+                character.addSkill("Corpo");
+                character.trainSkill("Corpo", expGained);
+                break;
+            case '2':
+                character.addSkill("Mente");
+                character.trainSkill("Mente", expGained);
+                break;
+            case '3':
+                character.addSkill("Corrida");
+                character.trainSkill("Corrida", expGained);
+                break;
+            case '4':
+                character.addSkill("Pulo");
+                character.trainSkill("Pulo", expGained);
+                break;
+            case '5':
+                break;
+            default:
+                alert("Opção inválida. Por favor, escolha uma opção válida.");
+        }
+    }
+    
+    function updateCharacterInfo() {
+        document.getElementById('characterInfo').innerText = `
+            Nome: ${character.name}
+            Nível: ${character.level}
+            Experiência: ${character.experience}
+            Habilidades: ${JSON.stringify(character.skills)}
+        `;
+    }
+
+    updateCharacterInfo();
+    const character = new Character("Atleta");
+    
+    chooseTrainingOption(character);
+    
+    alert(character);
+    
 }
 
 function adicionarAoInventario(item, quantidade) {
