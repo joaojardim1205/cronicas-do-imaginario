@@ -1,9 +1,10 @@
-let inventario = {};
+let inventarioEmocoes = {};
 let progresso = 50;
 let sanidade = 50;
 let checkpoint;
 let opcao;
 let treinamento = 0;
+let continuarHistoria = 0;
 
 alert("Bem-vindo à história de Tachlowini Gabriyesos!");
 
@@ -14,7 +15,11 @@ function menuGame() {
 
         switch (menu) {
             case "1":
-                historia();
+                if(continuarHistoria== 1){
+                    alert("Você já começou a historia, tente acessar o checkpoint");
+                } else {
+                    historia();
+                }
                 break;
             case "2":
                 alert("O progresso é a sua vida, ela aumenta ou diminui dependendo de suas escolhas. Sua vida inicial é 50");
@@ -49,6 +54,7 @@ function menuGame() {
 }
 
 function historia() {
+    continuarHistoria = 1;
     alert("Seu nome é Tachlowini, atualmente possui 12 anos e mora na Eritreia, sua terra natal. Um país localizado na África.");
     alert("Como a Eritreia é um país com uma taxa de pobreza muito alta, você, depois de muito pensar, decide ir embora em busca de uma vida melhor.");
     alert("Você possui um amigo, seu único melhor amigo. Antes de sair, você precisa tomar uma decisão muito importante: chamar o seu amigo e ir embora com ele ou ir sozinho.");
@@ -348,92 +354,6 @@ function goIsraelAlone() {
     treinamentoMenu();
 }
 
-function treinamentoMenu(){
-    treinamento = false;
-
-    class Character {
-        constructor(name) {
-            this.name = name;
-            this.level = 1;
-            this.experience = 0;
-            this.skills = {};
-        }
-    
-        addSkill(skillName) {
-            if (!this.skills[skillName]) {
-                this.skills[skillName] = 1;
-            }
-        }
-    
-        trainSkill(skillName, exp) {
-            if (this.skills[skillName]) {
-                this.skills[skillName] += exp;
-                this.experience += exp;
-                this.checkLevelUp();
-                alert(`${this.name} treinou ${skillName} e ganhou ${exp} pontos de experiência.`);
-            } else {
-                alert(`${skillName} não existe no conjunto de habilidades do personagem.`);
-            }
-        }
-    
-        checkLevelUp() {
-            let requiredExp = this.level * 100;
-            if (this.experience >= requiredExp) {
-                this.level++;
-                this.experience -= requiredExp;
-                console.log(`${this.name} subiu para o nível ${this.level}!`);
-            }
-        }
-    }
-    
-    function chooseTrainingOption(character) {
-        let trainingOption = prompt("Escolha uma habilidade para treinar: (1) Corpo, (2) Mente, (3) Corrida, (4) Pulo, (5) Dormir");
-        let expGained = Math.floor(Math.random() * 50) + 10; 
-    
-        switch (trainingOption) {
-            case '1':
-                character.addSkill("Corpo");
-                character.trainSkill("Corpo", expGained);
-                break;
-            case '2':
-                character.addSkill("Mente");
-                character.trainSkill("Mente", expGained);
-                break;
-            case '3':
-                character.addSkill("Corrida");
-                character.trainSkill("Corrida", expGained);
-                break;
-            case '4':
-                character.addSkill("Pulo");
-                character.trainSkill("Pulo", expGained);
-                break;
-            case '5':
-                break;
-            default:
-                alert("Opção inválida. Por favor, escolha uma opção válida.");
-        }
-    }
-    
-    function updateCharacterInfo() {
-        document.getElementById('characterInfo').innerText = `
-            Nome: ${character.name}
-            Nível: ${character.level}
-            Experiência: ${character.experience}
-            Habilidades: ${JSON.stringify(character.skills)}
-        `;
-    }
-
-    updateCharacterInfo();
-    const character = new Character("Atleta");
-    
-    chooseTrainingOption(character);
-    
-    alert(character);
-    
-    perguntarSeVoltarMenu();
-    treinamentoMenu();
-}
-
 function treinamentoMenu() {
     treinamento = 1;
 
@@ -560,40 +480,20 @@ function treinamentoMenu() {
 }
 
 function adicionarAoInventario(item, quantidade) {
-    if (inventario[item]) {
-        inventario[item] += quantidade;
+    if (inventarioEmocoes[item]) {
+        inventarioEmocoes[item] += quantidade;
     } else {
-        inventario[item] = quantidade;
+        inventarioEmocoes[item] = quantidade;
     }
 }
 
 function mostrarInventario() {
-    if (Object.keys(inventario).length === 0) {
+    if (Object.keys(inventarioEmocoes).length === 0) {
         alert("Seu inventário está vazio");
     } else {
         let itens = "Itens no inventário:\n";
-        for (let item in inventario) {
-            itens += `${item}: ${inventario[item]}\n`;
-        }
-        alert(itens);
-    }
-}
-
-function adicionarAoInventario(item, quantidade) {
-    if (inventario[item]) {
-        inventario[item] += quantidade;
-    } else {
-        inventario[item] = quantidade;
-    }
-}
-
-function mostrarInventario() {
-    if (Object.keys(inventario).length === 0) {
-        alert("Seu inventário está vazio");
-    } else {
-        let itens = "Itens no inventário:\n";
-        for (let item in inventario) {
-            itens += `${item}: ${inventario[item]}\n`;
+        for (let item in inventarioEmocoes) {
+            itens += `${item}: ${inventarioEmocoes[item]}\n`;
         }
         alert(itens);
     }
@@ -622,6 +522,12 @@ function perguntarSeVoltarMenu() {
         menuGame();
     } else if (opcao === "nao") {
         alert("Continuando a história...");
+    }
+}
+
+class character {
+    constructor(inventario){
+
     }
 }
 
