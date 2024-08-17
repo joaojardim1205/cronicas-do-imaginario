@@ -12,35 +12,32 @@ function menuGame() {
     while (continuar) {
         let menu = prompt("--------- MENU ---------\nSelecione uma opção:\n[1] História\n[2] Acessar progresso\n[3] Acessar inventário\n[4] Acessar sanidade\n[5] Checkpoint\n6] Treinamento\n[7] Sair do jogo");
 
-        switch (menu) {
-            case "1":
-                historia();
-                break;
-            case "2":
-                alert("O progresso é a sua vida, ela aumenta ou diminui dependendo de suas escolhas. Sua vida inicial é 50");
-                alert(`Vida: ${progresso}`);
-                break;
-            case "3":
-                alert("Você acessou o inventário, nele são guardados itens coletados durante a história");
-                mostrarInventario();
-                break;
-            case "4":
-                alert("Sanidade é um fator muito importante, caso sua sanidade chegue a 0, algo ruim acontecerá. Sua sanidade inicial é 50");
-                alert(`Sua sanidade: ${sanidade}`);
-                break;
-            case "5":
-                carregarCheckpoint();
-                break;
-            case "6":
-                treinamentoMenu();
-                break;
-            case "7":
-                continuar = false;
-                alert("Obrigado por jogar!");
-                break;
-            default:
-                alert("Opção inválida, tente novamente");
-        }
+    switch (menu){
+        case "1": 
+            historia();
+            break
+        case "2":
+            alert(`Progresso atual do jogo: ${progresso}%`);
+            menuGame();
+            break
+        case "3":
+            alert("Você acessou o inventario, nele é guardado itens coletados durante a historia");
+            alert(inventario);
+            menuGame();
+            break
+        case "4":
+            alert("Você acessou o checkpoint, nele é armazenado o ponto da historia que voce parou");
+            alert("Continuando a historia...");
+            checkpoint
+            break
+        case "5":
+            alert("Sanidade é um fator muito importante, caso sua sanidade chegue a 0, algo ruim acontecera. Sua sanidade inicial é 50");
+            alert(sanidade);
+            menuGame();
+            break
+        default:
+            alert("Opção invalida, tente novamente");
+            menuGame();
     }
 }
 
@@ -278,199 +275,19 @@ function telefoneSudao() {
 
     let UsarFone = prompt("Vocês usam o telefone? (sim) (nao)");
 
-    if (UsarFone === "sim") {
-        progresso += 5;
-        alert(`Vida: ${progresso}`);
-        alert("Vocês decidem utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
-        alert("Ao ligar, sua tia lhes fala que ela está em Israel e que vocês podem ir para lá. Ela diz que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
-        alert("Após ouvir o que ela disse, vocês com os olhos cheios de esperança decidem ir para Israel, em busca de algo melhor");
-        salvarCheckpoint("goIsraelSudao");
-        goIsrael();
-    } else if (UsarFone === "nao") {
-        progresso -= 5;
-        alert(`Vida: ${progresso}`);
-        alert("Você decide não usar o telefone e permanecer no Sudão com o seu amigo.");
-        alert("No Sudão, vocês dois enfrentam muitas dificuldades, trabalhando na loja de conveniência para sobreviver.");
-        alert("Após um tempo, você descobre sobre um abrigo em Israel. Um abrigo famoso onde varios refugiados vão.");
-        alert("Depois de ter descoberto isso, você vai falar coom o seu amigo e decidem que irão para lá em busca de uma vida melhor.");
-        salvarCheckpoint("goIsrael");
-        goIsrael();
-    } else {
-        alert("Opção inválida, tente novamente");
-        telefoneSudao();
-    }
-}
-
-function goIsrael() {
-    progresso += 15;
-    alert(`Vida: ${progresso}`);
-    alert("Você e seu amigo finalmente chegam em Israel");
-    alert("Agora, vocês dois podem se hospedar no abrigo que sua tia falou");
-
-    alert("Vocês agora finalmente podem descansar, mas esse descanso nao dura muito. Como vocês dois sao refugiados menores de idade e sem nenhum parente ou responsavel, vocês são classificados como requerente de asilo e são enviados para um centro de detensão.");
-    alert("Lá, vocês dois são analisados clinicamente e são inscrito no Hadassah Neurim Youth Village, um internato para jovens em risco ao norte de Tel Aviv.");
-    alert("Nesse internato, vocês demoram um tempo para poder se adaptar, mas com o seu amigo, no final da tudo certo.");
-    alert("Lá, você descobre um programa de corrida diregido pelo professor Alemayu Faloro. Você fica realmente interessado nesse curso e decide que irá tenta-lo.");
-    alert("Vocês dois passam bastante tempo nesse internato até termina-lo, agora vocês sao oficialmente residentes de israel.");
-    alert("Durante todo esse tempo, você se apaixonou ainda mais com atletismo e decidiu que irá fazer isso profissionalmente");
-    alert("O seu amigo tambem nao ficou para tras e decidiu que irá seguir no ramo de arte. Por fim vocês dão um abraço um no outro e seguem rumos diferentes.");
-    alert("Agora você vai começar a treinar profissionalmente com o seu professor");
-
-    salvarCheckpoint("treinamentoMenu");
-
-    perguntarSeVoltarMenu();
-    treinamentoMenu();
-}
-
-function goIsraelAlone() {
-    progresso += 10;
-    alert(`Vida: ${progresso}`);
-    alert("Você finalmente chega em Israel");
-    alert("Agora, você pode se hospedar no abrigo que sua tia falou");
-
-    alert("Você agora finalmente pode descansar, mas esse descanso nao dura muito. Como você é refugiado menore de idade e sem nenhum parente ou responsavel, você é classificado como requerente de asilo e é enviado para um centro de detensão.");
-    alert("Lá, você é analisado clinicamente e inscrito no Hadassah Neurim Youth Village, um internato para jovens em risco ao norte de Tel Aviv.");
-    alert("Nesse internato, você demora bastante tempo para poder se adaptar, sem o seu amgio tudo fica mais dificil. Por causa disso você acabou perdendo 10x sanidade");
-    sanidade -= 10;
-    alert(`Sanidade: ${sanidade}`);
-    alert("Depois de muita luta para se encaixar lá, você acaba descobrindo um programa de corrida diregido pelo professor Alemayu Faloro. Você fica realmente interessado nesse curso e decide que irá tenta-lo.");
-    alert("Você passa bastante tempo nesse internato até termina-lo, agora você é oficialmente residentes de israel.");
-    alert("Durante todo esse tempo, você se apaixonou ainda mais com atletismo e decidiu que irá fazer isso profissionalmente");
-    alert("Agora você vai começar a treinar profissionalmente com o seu professor");
-
-    salvarCheckpoint("treinamentoMenu");
-    
-    perguntarSeVoltarMenu();
-    treinamentoMenu();
-}
-
-function treinamentoMenu() {
-
-    class Character {
-        constructor(nome) {
-            this.nome = nome;
-            this.nivel = 1;
-            this.experienciaParaNivel = 0;
-            this.habilidades = {}; 
-            this.fatiga = 0;
-        }
-    
-        adicionarHabilidade(habilidadeNome) {
-            if (!(habilidadeNome in this.habilidades)) {
-                this.habilidades[habilidadeNome] = { nivel: 1, experiencia: 0 };
-            }
-        }
-    
-        trainarHabilidade(habilidadeNome, exp) {
-            if (this.fatiga >= 80) {
-                alert(`${this.nome} está muito cansado para treinar. Descanse antes de treinar.`);
-                return;
-            }
-            
-            if (this.habilidades[habilidadeNome]) {
-                let habilidadeExp = exp * 0.5; 
-                let nivelExp = exp * 1; 
-
-                this.habilidades[habilidadeNome].experiencia += habilidadeExp;
-                this.experienciaParaNivel += nivelExp;
-                this.fatiga += 10;
-
-                this.checarHabilidadeNivelAumento(habilidadeNome);
-                this.checarNivelAumento();
-                
-                alert(`${this.nome} treinou ${habilidadeNome} e ganhou ${habilidadeExp} pontos de experiência em habilidades e ${nivelExp} pontos de experiência para o nível.`);
-            } 
-        }
-    
-        checarNivelAumento() {
-            let ExpNecessario = this.nivel * 100;
-            if (this.experienciaParaNivel >= ExpNecessario) {
-                this.nivel++;
-                this.experienciaParaNivel -= ExpNecessario;
-                this.aumentarSkillExpMultiplicador();
-                
-                alert(`${this.nome} subiu para o nível ${this.nivel}!`);
-            }
-        }
-
-        aumentarSkillExpMultiplicador() {
-            for (let habilidade in this.habilidades) {
-                this.habilidades[habilidade].multiplicadorExp = (this.habilidades[habilidade].multiplicadorExp || 1) * 1.2;
-            }
-        }
-
-        checarHabilidadeNivelAumento(habilidadeNome) {
-            let NecessarioHabilidadeExp = this.habilidades[habilidadeNome].nivel * 50;
-            if (this.habilidades[habilidadeNome].experiencia >= NecessarioHabilidadeExp) {
-                this.habilidades[habilidadeNome].nivel++;
-                this.habilidades[habilidadeNome].experiencia -= NecessariHabilidadeExp;
-                alert(`${this.nome} subiu de nível na habilidade ${habilidadeNome}!`);
-            }
-        }
-    
-        descansar() {
-            this.fatiga = Math.max(0, this.fatiga - 50);
-            alert(`${this.nome} descansou e agora está com ${this.fatiga} de cansaço.`);
-        }
-
-        obterResumoHabilidades() {
-            let resumo = "Habilidades:\n";
-            for (let habilidade in this.habilidades) {
-                resumo += `${habilidade} - Nível: ${this.habilidades[habilidade].nivel}, Experiência: ${this.habilidades[habilidade].experiencia}\n`;
-            }
-            return resumo;
-        }
-
-        atualizarInformacoes() {
-            alert(`Informações do Personagem:\nNome: ${this.nome}\nNível: ${this.nivel}\nExperiência para Nível: ${this.experienciaParaNivel}\n${this.obterResumoHabilidades()}Cansaço: ${this.fatiga}`);
-        }
-    }
-
-    const character = new Character("Tachlowini");
-
-    function escolherOpcaoTreinamento(character) {
-        let continuar = true;
-        
-        while (continuar) {
-            let OpcaoTreinamento = prompt("Escolha uma habilidade para treinar: (1) Corpo, (2) Mente, (3) Corrida, (4) Pulo, (5) Dormir, (6) sair");
-            let expGanho = Math.floor(Math.random() * 20) + 10; 
-    
-            switch (OpcaoTreinamento) {
-                case '1':
-                    character.adicionarHabilidade("Corpo");
-                    character.trainarHabilidade("Corpo", expGanho);
-                    break;
-                case '2':
-                    character.adicionarHabilidade("Mente");
-                    character.trainarHabilidade("Mente", expGanho);
-                    break;
-                case '3':
-                    character.adicionarHabilidade("Corrida");
-                    character.trainarHabilidade("Corrida", expGanho);
-                    break;
-                case '4':
-                    character.adicionarHabilidade("Pulo");
-                    character.trainarHabilidade("Pulo", expGanho);
-                    break;
-                case '5':
-                    character.descansar();
-                    break;
-                case '6':
-                    continuar = false;
-                    alert("Você parou de treinar");
-                    break;
-                default:
-                    alert("Opção inválida. Por favor, escolha uma opção válida.");
-            }
-            character.atualizarInformacoes();
-        }
-    }
-    escolherOpcaoTreinamento(character);
-}
-
-function adicionarAoInventario(item, quantidade) {
-    if (inventario[item]) {
-        inventario[item] += quantidade;
+    if(UsarFone === "sim"){
+        progresso =+ 15
+        alert(`progresso de vida: ${progresso}%`);
+        alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
+        alert("Ao ligar, sua tia lhe fala que ela está em israel e que você e seu amgio podem ir para la. Ela fala que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
+        alert("Apos ouvir oque ela disse, vocês dois com os olhos cheios de esperança decidem ir para israel, em busca de algo melhor");
+    } else if(UsarFone === "nao"){
+        progresso =+ 7
+        alert(`Progresso de vida: ${progresso}%`)
+        alert("Você decidiu nao usar o telefone e ficar na etiopia, na loja de conveniencia")
+        alert("Na etiopia, você e seu amigo passam por muitas dificuldades, tendo que trabalhar na loja de conveniencia durante horas e horas apenas para nao morrer de fome")
+        alert("Apos exaustivos dias, você descobre do dono da loja que existe um local em israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor")
+        alert("Apos descobrir isso, você rapidamente vai contar para seu amigo e com os olhos cheios de esperança vocês dois decidem ir para israel, em busca de algo melhor")
     } else {
         inventario[item] = quantidade;
     }
@@ -488,29 +305,16 @@ function mostrarInventario() {
     }
 }
 
-function salvarCheckpoint(ponto) {
-    checkpoint = ponto;
-    alert(`Checkpoint salvo: ${checkpoint}`);
+function goSultão() {
+    
 }
 
-function carregarCheckpoint() {
-    if (checkpoint) {
-        alert(`Carregando checkpoint: ${checkpoint}`);
-        if (typeof window[checkpoint] === "function") {
-            window[checkpoint]();
-        } else {
-            alert("Checkpoint inválido");
-        }
-    }    
+function goIsrael(){
+
 }
 
-function perguntarSeVoltarMenu() {
-    opcao = prompt("Deseja retornar ao menu? (sim) (nao)");
-    if (opcao === "sim") {
-        menuGame();
-    } else if (opcao === "nao") {
-        alert("Continuando a história...");
-    }
+function goIsraelAlone(){
+    
 }
 
 menuGame();
