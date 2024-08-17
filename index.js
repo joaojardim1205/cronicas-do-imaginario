@@ -3,7 +3,7 @@ let progresso = 50;
 let sanidade = 50;
 let checkpoint;
 let opcao;
-let treinamento = true;
+let treinamento = 0;
 
 alert("Bem-vindo à história de Tachlowini Gabriyesos!");
 
@@ -32,10 +32,9 @@ function menuGame() {
                 carregarCheckpoint();
                 break;
             case "6":
-                treinamentoMenu();
-                if(treinamento = true){
+                if(treinamento == 0){
                     alert("Você ainda não desbloqueiou o treinamento, tente outra opção");
-                } else if (treinamento = false){
+                } else {
                     treinamentoMenu();
                 }
                 break;
@@ -436,6 +435,7 @@ function treinamentoMenu(){
 }
 
 function treinamentoMenu() {
+    treinamento = 1;
 
     class Character {
         constructor(nome) {
