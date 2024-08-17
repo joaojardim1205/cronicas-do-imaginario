@@ -32,11 +32,7 @@ function menuGame() {
                 carregarCheckpoint();
                 break;
             case "6":
-                if(treinamento = true){
-                    alert("Você ainda não desbloqueiou o treinamento, tente outra opção");
-                } else if (treinamento = false){
-                    treinamentoMenu();
-                }
+                treinamentoMenu();
                 break;
             case "7":
                 continuar = false;
@@ -348,88 +344,128 @@ function goIsraelAlone() {
     treinamentoMenu();
 }
 
-function treinamentoMenu(){
-    treinamento = false;
+function treinamentoMenu() {
 
     class Character {
-        constructor(name) {
-            this.name = name;
-            this.level = 1;
-            this.experience = 0;
-            this.skills = {};
+        constructor(nome) {
+            this.nome = nome;
+            this.nivel = 1;
+            this.experienciaParaNivel = 0;
+            this.habilidades = {}; 
+            this.fatiga = 0;
         }
     
-        addSkill(skillName) {
-            if (!this.skills[skillName]) {
-                this.skills[skillName] = 1;
+        adicionarHabilidade(habilidadeNome) {
+            if (!(habilidadeNome in this.habilidades)) {
+                this.habilidades[habilidadeNome] = { nivel: 1, experiencia: 0 };
             }
         }
     
-        trainSkill(skillName, exp) {
-            if (this.skills[skillName]) {
-                this.skills[skillName] += exp;
-                this.experience += exp;
-                this.checkLevelUp();
-                alert(`${this.name} treinou ${skillName} e ganhou ${exp} pontos de experiência.`);
-            } else {
-                alert(`${skillName} não existe no conjunto de habilidades do personagem.`);
+        trainarHabilidade(habilidadeNome, exp) {
+            if (this.fatiga >= 80) {
+                alert(`${this.nome} está muito cansado para treinar. Descanse antes de treinar.`);
+                return;
+            }
+            
+            if (this.habilidades[habilidadeNome]) {
+                let habilidadeExp = exp * 0.5; 
+                let nivelExp = exp * 1; 
+
+                this.habilidades[habilidadeNome].experiencia += habilidadeExp;
+                this.experienciaParaNivel += nivelExp;
+                this.fatiga += 10;
+
+                this.checarHabilidadeNivelAumento(habilidadeNome);
+                this.checarNivelAumento();
+                
+                alert(`${this.nome} treinou ${habilidadeNome} e ganhou ${habilidadeExp} pontos de experiência em habilidades e ${nivelExp} pontos de experiência para o nível.`);
+            } 
+        }
+    
+        checarNivelAumento() {
+            let ExpNecessario = this.nivel * 100;
+            if (this.experienciaParaNivel >= ExpNecessario) {
+                this.nivel++;
+                this.experienciaParaNivel -= ExpNecessario;
+                this.aumentarSkillExpMultiplicador();
+                
+                alert(`${this.nome} subiu para o nível ${this.nivel}!`);
+            }
+        }
+
+        aumentarSkillExpMultiplicador() {
+            for (let habilidade in this.habilidades) {
+                this.habilidades[habilidade].multiplicadorExp = (this.habilidades[habilidade].multiplicadorExp || 1) * 1.2;
+            }
+        }
+
+        checarHabilidadeNivelAumento(habilidadeNome) {
+            let NecessarioHabilidadeExp = this.habilidades[habilidadeNome].nivel * 50;
+            if (this.habilidades[habilidadeNome].experiencia >= NecessarioHabilidadeExp) {
+                this.habilidades[habilidadeNome].nivel++;
+                this.habilidades[habilidadeNome].experiencia -= NecessariHabilidadeExp;
+                alert(`${this.nome} subiu de nível na habilidade ${habilidadeNome}!`);
             }
         }
     
-        checkLevelUp() {
-            let requiredExp = this.level * 100;
-            if (this.experience >= requiredExp) {
-                this.level++;
-                this.experience -= requiredExp;
-                console.log(`${this.name} subiu para o nível ${this.level}!`);
+        descansar() {
+            this.fatiga = Math.max(0, this.fatiga - 50);
+            alert(`${this.nome} descansou e agora está com ${this.fatiga} de cansaço.`);
+        }
+
+        obterResumoHabilidades() {
+            let resumo = "Habilidades:\n";
+            for (let habilidade in this.habilidades) {
+                resumo += `${habilidade} - Nível: ${this.habilidades[habilidade].nivel}, Experiência: ${this.habilidades[habilidade].experiencia}\n`;
             }
+            return resumo;
         }
-    }
-    
-    function chooseTrainingOption(character) {
-        let trainingOption = prompt("Escolha uma habilidade para treinar: (1) Corpo, (2) Mente, (3) Corrida, (4) Pulo, (5) Dormir");
-        let expGained = Math.floor(Math.random() * 50) + 10; 
-    
-        switch (trainingOption) {
-            case '1':
-                character.addSkill("Corpo");
-                character.trainSkill("Corpo", expGained);
-                break;
-            case '2':
-                character.addSkill("Mente");
-                character.trainSkill("Mente", expGained);
-                break;
-            case '3':
-                character.addSkill("Corrida");
-                character.trainSkill("Corrida", expGained);
-                break;
-            case '4':
-                character.addSkill("Pulo");
-                character.trainSkill("Pulo", expGained);
-                break;
-            case '5':
-                break;
-            default:
-                alert("Opção inválida. Por favor, escolha uma opção válida.");
+
+        atualizarInformacoes() {
+            alert(`Informações do Personagem:\nNome: ${this.nome}\nNível: ${this.nivel}\nExperiência para Nível: ${this.experienciaParaNivel}\n${this.obterResumoHabilidades()}Cansaço: ${this.fatiga}`);
         }
-    }
-    
-    function updateCharacterInfo() {
-        document.getElementById('characterInfo').innerText = `
-            Nome: ${character.name}
-            Nível: ${character.level}
-            Experiência: ${character.experience}
-            Habilidades: ${JSON.stringify(character.skills)}
-        `;
     }
 
-    updateCharacterInfo();
-    const character = new Character("Atleta");
+    const character = new Character("Tachlowini");
+
+    function escolherOpcaoTreinamento(character) {
+        let continuar = true;
+        
+        while (continuar) {
+            let OpcaoTreinamento = prompt("Escolha uma habilidade para treinar: (1) Corpo, (2) Mente, (3) Corrida, (4) Pulo, (5) Dormir, (6) sair");
+            let expGanho = Math.floor(Math.random() * 20) + 10; 
     
-    chooseTrainingOption(character);
-    
-    alert(character);
-    
+            switch (OpcaoTreinamento) {
+                case '1':
+                    character.adicionarHabilidade("Corpo");
+                    character.trainarHabilidade("Corpo", expGanho);
+                    break;
+                case '2':
+                    character.adicionarHabilidade("Mente");
+                    character.trainarHabilidade("Mente", expGanho);
+                    break;
+                case '3':
+                    character.adicionarHabilidade("Corrida");
+                    character.trainarHabilidade("Corrida", expGanho);
+                    break;
+                case '4':
+                    character.adicionarHabilidade("Pulo");
+                    character.trainarHabilidade("Pulo", expGanho);
+                    break;
+                case '5':
+                    character.descansar();
+                    break;
+                case '6':
+                    continuar = false;
+                    alert("Você parou de treinar");
+                    break;
+                default:
+                    alert("Opção inválida. Por favor, escolha uma opção válida.");
+            }
+            character.atualizarInformacoes();
+        }
+    }
+    escolherOpcaoTreinamento(character);
 }
 
 function adicionarAoInventario(item, quantidade) {
@@ -465,9 +501,7 @@ function carregarCheckpoint() {
         } else {
             alert("Checkpoint inválido");
         }
-    } else {
-        alert("Nenhum checkpoint salvo");
-    }
+    }    
 }
 
 function perguntarSeVoltarMenu() {
