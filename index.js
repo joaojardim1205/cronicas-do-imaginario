@@ -1,12 +1,16 @@
+let personagemEstado;
+let character;
 let inventarioEmocoes = {};
 let progressoPersonagem = 50;
 let checkpoint = null;
 let treinamento = 0;
 let continuarHistoria = 0;
 let continuarConversa = 0;
+let continuarNivel = true;
 
 alert("Bem-vindo à história de Tachlowini Gabriyesos!");
 
+// função inicial contendo o menu do jogo, junto com as opcoes para cada ação do jogo
 function menuGame() {
     let continuar = true;
     while (continuar) {
@@ -22,7 +26,7 @@ function menuGame() {
                 break;
             case '2':
                 alert("O progresso é a sua vida, ela aumenta ou diminui dependendo de suas escolhas. Sua vida inicial é 50");
-                mostrarProgressoPersonagem();
+                alert(`Progresso do personagem: ${progressoPersonagem}`);
                 break;
             case '3':
                 alert("Você acessou o inventário, nele são guardados itens coletados durante a história");
@@ -50,6 +54,7 @@ function menuGame() {
     }
 }
 
+// função inicial contendo a historia do atleta Tachlowini e a opção de ir para as duas rotas do jogo. A função faz parte da função historia
 function historia() {
     continuarHistoria = 1;
     alert("Seu nome é Tachlowini, atualmente possui 12 anos e mora na Eritreia, sua terra natal. Um país localizado na África.");
@@ -60,7 +65,6 @@ function historia() {
 
     if (irAmigo === "sim") {
         armazenarProgressoPersonagem(10);
-        mostrarProgressoPersonagem();
         adicionarAoInventario("Empatia", 10);
         alert("Você ganhou 10x Empatia");
         alert("Empatia será armazenada no inventário.");
@@ -71,7 +75,6 @@ function historia() {
 
     } else if (irAmigo === "nao") {
         armazenarProgressoPersonagem(-20);
-        mostrarProgressoPersonagem();
         adicionarAoInventario("Antipatia", 10);
         alert("Você ganhou 10x Antipatia");
         alert("Antipatia será armazenada no inventário.");
@@ -86,6 +89,7 @@ function historia() {
     }
 }
 
+// função da rota com a escolha de ir com amigo, contem a escolha para novas rotas. A função faz parte da função historia
 function goFriend() {
     alert("Você decidiu ir atrás de seu amigo, então você pega itens básicos e vai até a casa dele.");
     alert("Ao chegar na casa dele, você rapidamente o chama e o convida para ir com você. Ele prontamente responde que aceita e logo em seguida vão embora de seu país natal.");
@@ -106,6 +110,7 @@ function goFriend() {
     }
 }
 
+// função da rota com a escolha de ir sozinho, contem a mesmas escolha de novas rotas que o goFriend, mas sendo na rota sozinho. A função faz parte da função historia
 function goAlone() {
     alert("Você decidiu não chamar seu amigo e ir sozinho. Então você prontamente pega suas coisas e vai embora de seu país natal.");
     alert("Agora, você precisa decidir entre ir para a Etiópia ou para o Sudão, dois países vizinhos da Eritreia.");
@@ -126,9 +131,9 @@ function goAlone() {
     }
 }
 
+// função da rota do local etiopia na rota sozinho. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goEtiopiaAlone() {
     armazenarProgressoPersonagem(5);
-    mostrarProgressoPersonagem();
     alert("Você decide ir embora para a Etiópia");
     alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Tudo isso sozinho");
     alert("Após muito tempo e sofrimento, você consegue finalmente chegar na Etiópia. Agora você decide se abrigar em uma loja de conveniência");
@@ -143,9 +148,9 @@ function goEtiopiaAlone() {
     telefoneEtiopiaAlone();
 }
 
+// função da rota do local etiopia na rota junto com o amigo. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goEtiopia() {
     armazenarProgressoPersonagem(10);
-    mostrarProgressoPersonagem();
     alert("Você decide ir embora com seu amigo para a Etiópia");
     alert("Você caminha durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Graças ao seu amigo, você aguenta firmemente.");
     adicionarAoInventario("Persistencia", 5)
@@ -162,9 +167,9 @@ function goEtiopia() {
     telefoneEtiopia();
 }
 
+// função da rota do local sudao na rota sozinho. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goSudaoAlone(){
     armazenarProgressoPersonagem(-10);
-    mostrarProgressoPersonagem();
     alert("Você decide ir para o Sudão.");
     alert("Você caminha durante dias sob o sol escaldante, sobrevivendo com poucas migalhas de comida e evitando policiais.");
     alert("você precisa atravesar o deserto, durante dias e noites a pé.")
@@ -181,9 +186,9 @@ function goSudaoAlone(){
     telefoneSudaoAlone();
 }
 
+// função da rota do local sudao na rota junto com o amigo. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goSudao() {
     armazenarProgressoPersonagem(-5);
-    mostrarProgressoPersonagem();
     alert("Você e seu amigo decidem ir embora para o Sudão");
     alert("Vocês caminham durante dias no sol ardente, sobrevive comendo migalhas e fugindo de policiais. Com a ajuda do seu amigo, vocês conseguem aguentar.");
     alert("Após um longo período, vocês conseguem finalmente chegar no Sudão. Agora vocês decidem procurar abrigo");
@@ -201,8 +206,7 @@ function goSudao() {
     telefoneSudao();
 }
 
-
-
+// função da rota do local etiopia na rota sozinho com a opção de nova rota telefone. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function telefoneEtiopiaAlone() {
     alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
@@ -210,7 +214,6 @@ function telefoneEtiopiaAlone() {
 
     if (UsarFone === "sim") {
         armazenarProgressoPersonagem(5);
-        mostrarProgressoPersonagem();
         alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
         alert("Ao ligar, sua tia lhe fala que ela está em Israel e que você pode ir para lá. Ela diz que lá existe um abrigo onde você pode viver e ter a chance de conseguir uma vida melhor");
         adicionarAoInventario("esperança", 15)
@@ -223,7 +226,6 @@ function telefoneEtiopiaAlone() {
         goIsraelAlone();
     } else if (UsarFone === "nao") {
         armazenarProgressoPersonagem(-5);
-        mostrarProgressoPersonagem();
         alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
         alert("Na Etiópia, você passa por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
         alert("Após exaustivos dias, você descobre com o dono da loja que existe um local em Israel que você pode ficar e possivelmente ter uma chance de viver uma vida melhor");
@@ -241,6 +243,7 @@ function telefoneEtiopiaAlone() {
     }
 }
 
+// função da rota do local etiopia na rota junto com amigo com a opção de nova rota telefone. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function telefoneEtiopia() {
     alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
@@ -248,7 +251,6 @@ function telefoneEtiopia() {
 
     if (UsarFone === "sim") {
         armazenarProgressoPersonagem(5);
-        mostrarProgressoPersonagem();
         alert("Você decide utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
         alert("Ao ligar, sua tia lhe fala que ela está em Israel e que você e seu amigo podem ir para lá. Ela diz que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
         adicionarAoInventario("esperança", 10)
@@ -261,7 +263,6 @@ function telefoneEtiopia() {
         goIsrael();
     } else if (UsarFone === "nao") {
         armazenarProgressoPersonagem(-5);
-        mostrarProgressoPersonagem();
         alert("Você decidiu não usar o telefone e ficar na Etiópia, na loja de conveniência");
         alert("Na Etiópia, você e seu amigo passam por muitas dificuldades, tendo que trabalhar na loja de conveniência durante horas e horas apenas para não morrer de fome");
         alert("Após exaustivos dias, você descobre com o dono da loja que existe um local em Israel onde vocês dois podem ficar e possivelmente ter uma chance de viver uma vida melhor");
@@ -279,6 +280,7 @@ function telefoneEtiopia() {
     }
 }
 
+// função da rota do local sudao na rota sozinho com a opção de nova rota telefone. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function telefoneSudaoAlone(){
     alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
@@ -286,7 +288,6 @@ function telefoneSudaoAlone(){
 
     if (usarFone === "sim") {
         armazenarProgressoPersonagem(5);
-        mostrarProgressoPersonagem();
         alert("Você decide ligar para sua tia, que sempre cuidou de você.");
         alert("Sua tia diz que está em Israel e que há um abrigo onde você pode viver e ter uma chance de uma vida melhor.");
         adicionarAoInventario("otimismo", 15)
@@ -299,7 +300,6 @@ function telefoneSudaoAlone(){
         goIsraelAlone();
     } else if (usarFone === "nao") {
         armazenarProgressoPersonagem(-5);
-        mostrarProgressoPersonagem();
         alert("Você decide não usar o telefone e permanecer no Sudão.");
         alert("No Sudão, você enfrenta muitas dificuldades, trabalhando na loja de conveniência para sobreviver.");
         alert("Após um tempo, você descobre sobre um abrigo em Israel. Um abrigo famoso onde varios refugiados vão.");
@@ -317,6 +317,7 @@ function telefoneSudaoAlone(){
     }
 }
 
+// função da rota do local sudao na rota sozinho com a opção de nova rota telefone. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function telefoneSudao() {
     alert("Na loja de conveniência, você acha um telefone atras do balcão. Você tem a possibilidade de usar telefone para contatar um parente");
 
@@ -324,7 +325,6 @@ function telefoneSudao() {
 
     if (UsarFone === "sim") {
         armazenarProgressoPersonagem(5);
-        mostrarProgressoPersonagem();
         alert("Vocês decidem utilizar o telefone e ligar para sua tia, uma pessoa muito amada que sempre cuidou de você");
         alert("Ao ligar, sua tia lhes fala que ela está em Israel e que vocês podem ir para lá. Ela diz que lá existe um abrigo onde vocês podem viver e ter a chance de conseguir uma vida melhor");
         adicionarAoInventario("otimismo", 10)
@@ -337,7 +337,6 @@ function telefoneSudao() {
         goIsrael();
     } else if (UsarFone === "nao") {
         armazenarProgressoPersonagem(-5);
-        mostrarProgressoPersonagem();
         alert("Você decide não usar o telefone e permanecer no Sudão com o seu amigo.");
         alert("No Sudão, vocês dois enfrentam muitas dificuldades, trabalhando na loja de conveniência para sobreviver.");
         alert("Após um tempo, você descobre sobre um abrigo em Israel. Um abrigo famoso onde varios refugiados vão.");
@@ -355,9 +354,9 @@ function telefoneSudao() {
     }
 }
 
+// função da rota do local israel na rota junto com  amigo. Leva para a função treinamentoMenu. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goIsrael() {
     armazenarProgressoPersonagem(5);
-    mostrarProgressoPersonagem();
     alert("Você e seu amigo finalmente chegam em Israel");
     alert("Agora, vocês dois podem se hospedar no abrigo que sua tia falou");
 
@@ -378,9 +377,9 @@ function goIsrael() {
     treinamentoMenu();
 }
 
+// função da rota do local israel na rota sozinho. Leva para a função treinamentoMenu. Contem funções de armazenar o progresso, adicionar emoções ao inventario, salvar checkpoint, opção de voltar ao menu do jogo e a proxima função seguindo a historia. A função faz parte da função historia
 function goIsraelAlone() {
     armazenarProgressoPersonagem(5);
-    mostrarProgressoPersonagem();
     alert("Você finalmente chega em Israel");
     alert("Agora, você pode se hospedar no abrigo que sua tia falou");
 
@@ -401,26 +400,30 @@ function goIsraelAlone() {
     treinamentoMenu();
 }
 
+// função com todo o sistema de treinamento. Contem o menu com as opções de treinamento e todas as funções que fazem o menu funcionar
 function treinamentoMenu() {
     treinamento = 1;
 
+    // Modelo do personagem Tachlowini. É o local onde fica armazedado todas as informações e dados sobre o personagem
     class Character {
-        constructor(nome) {
+        constructor(nome, nivel = 1, experienciaParaNivel = 0, habilidades = {}, fatiga = 0) {
             this.nome = nome;
-            this.nivel = 1;
-            this.experienciaParaNivel = 0;
-            this.habilidades = {}; 
-            this.fatiga = 0;
+            this.nivel = nivel;
+            this.experienciaParaNivel = experienciaParaNivel;
+            this.habilidades = habilidades;
+            this.fatiga = fatiga;
         }
     
+        // função para criar as habilidades do personagem 
         adicionarHabilidade(habilidadeNome) {
             if (!(habilidadeNome in this.habilidades)) {
                 this.habilidades[habilidadeNome] = { nivel: 1, experiencia: 0 };
             }
         }
-    
+        
+        // função para treinar as habilidades. A funçao verifica se o personagem nao esta fadigado, define a quantidade de experiencia as habilidades e nivel recebe, adiciona experiencia as habilidades, alem de fadiga ao personagem e verifica se a habilidade subiu de nivel 
         trainarHabilidade(habilidadeNome, exp) {
-            if (this.fatiga >= 80) {
+            if (this.fatiga >= 100) {
                 alert(`${this.nome} está muito cansado para treinar. Descanse antes de treinar.`);
                 return;
             }
@@ -439,7 +442,8 @@ function treinamentoMenu() {
                 alert(`${this.nome} treinou ${habilidadeNome} e ganhou ${habilidadeExp} pontos de experiência em habilidades e ${nivelExp} pontos de experiência para o nível.`);
             } 
         }
-    
+        
+        // função que verifica se o personagem subiu de nivel
         checarNivelAumento() {
             let ExpNecessario = this.nivel * 100;
             if (this.experienciaParaNivel >= ExpNecessario) {
@@ -450,27 +454,26 @@ function treinamentoMenu() {
                 alert(`${this.nome} subiu para o nível ${this.nivel}!`);
             }
         }
-
-        aumentarSkillExpMultiplicador() {
-            for (let habilidade in this.habilidades) {
-                this.habilidades[habilidade].multiplicadorExp = (this.habilidades[habilidade].multiplicadorExp || 1) * 1.2;
-            }
-        }
-
+        
+        // função que verifica se o nivel da habilidade aumento, caso a habilidade tenha a quantidade de experiencia suficiente, ira aumentar o nivel da habilidade e a quantidade de exp para o proximo nivel
         checarHabilidadeNivelAumento(habilidadeNome) {
             let NecessarioHabilidadeExp = this.habilidades[habilidadeNome].nivel * 50;
+            
             if (this.habilidades[habilidadeNome].experiencia >= NecessarioHabilidadeExp) {
                 this.habilidades[habilidadeNome].nivel++;
                 this.habilidades[habilidadeNome].experiencia -= NecessarioHabilidadeExp;
+                
                 alert(`${this.nome} subiu de nível na habilidade ${habilidadeNome}!`);
             }
         }
-    
+        
+        // função para diminuir a quantidade de fadiga do personagem
         descansar() {
             this.fatiga = Math.max(0, this.fatiga - 50);
             alert(`${this.nome} descansou e agora está com ${this.fatiga} de cansaço.`);
         }
 
+        // função que contem todas as habilidades criadas do personagem, junto com o nivel e a quantidade de exp delas
         obterResumoHabilidades() {
             let resumo = "Habilidades:\n";
             for (let habilidade in this.habilidades) {
@@ -479,20 +482,32 @@ function treinamentoMenu() {
             return resumo;
         }
 
+        // função que contem todas as informacoes do personagem. A função inclue o nome, nivel, quantidade de experiencia do nivel, todas as habilidades e o cansaço do personagem
         atualizarInformacoes() {
             alert(`Informações do Personagem:\nNome: ${this.nome}\nNível: ${this.nivel}\nExperiência para Nível: ${this.experienciaParaNivel}\n${this.obterResumoHabilidades()}Cansaço: ${this.fatiga}`);
         }
     }
-
-    const character = new Character("Tachlowini");
-
-    function escolherOpcaoTreinamento(character) {
-        let continuar = true;
-        
-        while (continuar) {
-            let OpcaoTreinamento = prompt("Escolha uma habilidade para treinar:\n (1) Força\n (2) Mentalidade\n (3) Resistencia\n (4) Corrida\n (5) Salto\n (6) Dormir ");
-            let expGanho = Math.floor(Math.random() * 35) + 10; 
     
+    // Condicional para armazenar as informações e dados do personagem, para que nao resetem caso a função treinamentoMenu seja acessada novamente. Tambem cria o modelo Character caso ainda nao tenha sido criado 
+    if (personagemEstado) {
+        character = new Character(
+            personagemEstado.nome,
+            personagemEstado.nivel,
+            personagemEstado.experienciaParaNivel,
+            personagemEstado.habilidades,
+            personagemEstado.fatiga
+        );
+    } else {
+        character = new Character("Tachlowini");
+    }
+
+    // função com o menu de treinamento. Possui todas as opções para treinar, criando as habilidades e treinando-as caso sejam selecionadas alem de atualizar as informações do character. Tambem define a variavel personagemEstado aos dados do Character
+    function escolherOpcaoTreinamento(character) {
+        let continuarTreinamento = true;
+        while(continuarTreinamento){
+            let OpcaoTreinamento = prompt("Escolha uma habilidade para treinar:\n (1) Força\n (2) Mentalidade\n (3) Resistencia\n (4) Corrida\n (5) Salto\n (6) Dormir ");
+            let expGanho = Math.floor(Math.random() * 50) + 20; 
+
             switch (OpcaoTreinamento) {
                 case '1':
                     character.adicionarHabilidade("Força");
@@ -507,7 +522,7 @@ function treinamentoMenu() {
                     character.trainarHabilidade("Resistencia", expGanho);
                     break;
                 case '4':
-                    character.adicionarHabilidade("Corrrida");
+                    character.adicionarHabilidade("Corrida");
                     character.trainarHabilidade("Corrida", expGanho);
                     break;
                 case '5':
@@ -522,111 +537,132 @@ function treinamentoMenu() {
             }
             character.atualizarInformacoes();
             
-            if (character.nivel == 5) {
-                conversa();
-            } else if (character.nivel == 10){
-                continuarConversa = 1;
+            // Condicional para a rota conversa e conversa2 dependendo do nivel do personagem
+            if (character.nivel == 5 && continuarNivel) {
+                continuarTreinamento = false;
                 conversa();
             }
+            
+            else if (character.nivel == 10) {
+                continuarTreinamento = false;
+                conversa2();
+            }
+            
+            personagemEstado = {
+                nome: character.nome,
+                nivel: character.nivel,
+                experienciaParaNivel: character.experienciaParaNivel,
+                habilidades: character.habilidades,
+                fatiga: character.fatiga,
+            };
         }
     }
     escolherOpcaoTreinamento(character);
 }
 
-function conversa() {
-    if (continuarConversa == 0) {    
-        let resposta;
-        alert("Depois de muito treinamento, seu professor vem falar com você.");
-        alert("Professor: Tachlowini, tenho algo para te falar");
-        responda = prompt ("Oque você responde? (1) fala: Olá professor, tudo certo? oque você deseja falar comigo?\n (2) fala: Eai professor, oque você quer falar?\n (3) fala: Diga sor.");
+// função da rota do personagem nivel 5 apos o treinamento. Contem a rota olimpiadas ou a opção de voltar a treinar
+function conversa() {   
+    continuarNivel = false;
+    let resposta;
+    alert("Depois de muito treinamento, seu professor vem falar com você.");
+    alert("Professor: Tachlowini, tenho algo para te falar");
+    resposta = prompt ("Oque você responde? (1) fala: Olá professor, tudo certo? oque você deseja falar comigo?\n (2) fala: Eai professor, oque você quer falar?\n (3) fala: Diga sor.");
 
-        switch (resposta) {
-            case '1':
-                alert("Tachlowini: Olá professor, tudo certo? oque você deseja falar comigo?");
-                alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
-                alert("Tachlowini: Oque?? você está falando serio?");
-                alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
-                alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
-                alert("Professor: as olimpiadas irão começar em breve, é a hora perfeita. Oque você me diz?");
-                resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
-                if (resposta == "sim") {
-                    alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
-                    alert("Tachlowini: Estou tão animado, mal posso esperar!");
-                    adicionarAoInventario("Alegria", 10)
-                    alert("Você ganhou 10x alegria");
-                    alert("Alegria será armazenada no inventário.");
-    
-                    salvarCheckpoint("olimpiadas");
-                    perguntarSeVoltarMenu();
-                    olimpiadas();
-                } else if (resposta == "nao") {
-                    alert("Professor: entendo, você sente que ainda não está pronto");
-                    alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
-                    alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
-                    alert("Você decide voltar a treinar");
-                    treinamentoMenu();
-                } else {
-                    alert("Opção inválida. Tente novamente")
-                }
-                break;
-            case '2':
-                alert("Tachlowini: Eai professor, oque você quer falar?");
-                alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
-                alert("Tachlowini: Oque?? você está falando serio?");
-                alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
-                alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
-                alert("Professor: as olimpiadas irao começar em breve, é a hora perfeita. Oque você me diz?");
-                resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
-                if (resposta == "sim") {
-                    alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
-                    alert("Tachlowini: Estou tão animado, mal posso esperar!");
-                    adicionarAoInventario("Alegria", 10)
-                    alert("Você ganhou 10x alegria");
-                    alert("Alegria será armazenada no inventário.");
-    
-                    salvarCheckpoint("olimpiadas");
-                    perguntarSeVoltarMenu();
-                    olimpiadas();
-                } else if (resposta == "nao") {
-                    alert("Professor: entendo, você sente que ainda não está pronto");
-                    alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
-                    alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
-                    alert("Você decide voltar a treinar");
-                    treinamentoMenu();
-                } else {
-                    alert("Opção inválida. Tente novamente");
-                }
-                break;
-            case '3':
-                alert("Tachlowini: Diga sor");
-                alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
-                alert("Tachlowini: Oque?? você está falando serio?");
-                alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
-                alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
-                alert("Professor: as olimpiadas irao começar em breve, é a hora perfeita. Oque você me diz?");
-                resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
-                if (resposta == "sim") {
-                    alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
-                    alert("Tachlowini: Estou tão animado, mal posso esperar!");
-                    adicionarAoInventario("Alegria", 10)
-                    alert("Você ganhou 10x alegria");
-                    alert("Alegria será armazenada no inventário.");
-    
-                    salvarCheckpoint("olimpiadas");
-                    perguntarSeVoltarMenu();
-                    olimpiadas();
-                } else if (resposta == "nao") {
-                    alert("Professor: entendo, você sente que ainda não está pronto");
-                    alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
-                    alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
-                    alert("Você decide voltar a treinar");
-                    treinamentoMenu();
-                } else {
-                    alert("Opção inválida. Tente novamente")
-                }
-                break;
-        }  
-    }
+    switch (resposta) {
+        case '1':
+            alert("Tachlowini: Olá professor, tudo certo? oque você deseja falar comigo?");
+            alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
+            alert("Tachlowini: Oque?? você está falando serio?");
+            alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
+            alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
+            alert("Professor: as olimpiadas irão começar em breve, é a hora perfeita. Oque você me diz?");
+            resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
+            if (resposta == "sim") {
+                alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
+                alert("Tachlowini: Estou tão animado, mal posso esperar!");
+                adicionarAoInventario("Alegria", 10)
+                alert("Você ganhou 10x alegria");
+                alert("Alegria será armazenada no inventário.");
+
+                salvarCheckpoint("olimpiadas");
+                perguntarSeVoltarMenu();
+                olimpiadas();
+            } else if (resposta == "nao") {
+                alert("Professor: entendo, você sente que ainda não está pronto");
+                alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
+                alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
+                alert("Você decide voltar a treinar");
+                treinamentoMenu();
+            } else {
+                alert("Opção inválida. Tente novamente")
+                conversa();
+            }
+            break;
+        case '2':
+            alert("Tachlowini: Eai professor, oque você quer falar?");
+            alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
+            alert("Tachlowini: Oque?? você está falando serio?");
+            alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
+            alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
+            alert("Professor: as olimpiadas irao começar em breve, é a hora perfeita. Oque você me diz?");
+            resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
+            if (resposta == "sim") {
+                alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
+                alert("Tachlowini: Estou tão animado, mal posso esperar!");
+                adicionarAoInventario("Alegria", 10)
+                alert("Você ganhou 10x alegria");
+                alert("Alegria será armazenada no inventário.");
+
+                salvarCheckpoint("olimpiadas");
+                perguntarSeVoltarMenu();
+                olimpiadas();
+            } else if (resposta == "nao") {
+                alert("Professor: entendo, você sente que ainda não está pronto");
+                alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
+                alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
+                alert("Você decide voltar a treinar");
+                treinamentoMenu();
+            } else {
+                alert("Opção inválida. Tente novamente");
+                conversa();
+            }
+            break;
+        case '3':
+            alert("Tachlowini: Diga sor");
+            alert("Professor: parece que todo esse treinamento deu resultado. Acho que nao tenho mais nada que posso ensina-lo");
+            alert("Tachlowini: Oque?? você está falando serio?");
+            alert("Professor: sim, agora você esta apto a ir competir nas olimpiadas");
+            alert("Tachlowini: Finalmente, depois de tanto esforço e treinamento, eu estou finalmente pronto");
+            alert("Professor: as olimpiadas irao começar em breve, é a hora perfeita. Oque você me diz?");
+            resposta = prompt ("Professor: você deseja ir as olimpiadas? (sim) (nao)");
+            if (resposta == "sim") {
+                alert("Professor: então está decidido, você irá competir nas olimpiadas para atletismo");
+                alert("Tachlowini: Estou tão animado, mal posso esperar!");
+                adicionarAoInventario("Alegria", 10)
+                alert("Você ganhou 10x alegria");
+                alert("Alegria será armazenada no inventário.");
+
+                salvarCheckpoint("olimpiadas");
+                perguntarSeVoltarMenu();
+                olimpiadas();
+            } else if (resposta == "nao") {
+                alert("Professor: entendo, você sente que ainda não está pronto");
+                alert("Tachlowini: sim, sinto que ainda tenho muito oque melhorar até poder ir para as olimpiadas");
+                alert("Professor: está tudo bem, então vá e continue treinando até você não aguentar mais!");
+                alert("Você decide voltar a treinar");
+                treinamentoMenu();
+            } else {
+                alert("Opção inválida. Tente novamente")
+                conversa();
+            }
+            break;
+        default:
+            alert("Opção inválida, tente novamente");
+    }  
+}
+
+// função da rota do personagem nivel 10 apos o treinamento. Contem a rota olimpiadas
+function conversa2() {
     alert("Você para o seu treinamento e sente que agora está realmente pronto para as olimpíadas.")
     alert("Você vai correndo para falar com seu professor. Ao chegar nele, você diz:")
     alert("Tachlowini: Professor! eu acho que agora estou pronto para ir para as olimpiadas")
@@ -640,11 +676,24 @@ function conversa() {
     olimpiadas();
 }
 
+// função da rota olimpiada. Contem as ultimas falas alem das informações finais do personagem
 function olimpiadas() {
     alert("Então você e seu professor começam uma jornada para conseguir ser admitido nas olimpiadas");
-    alert("Você vai em diversos competicoes,")
+    alert("Você vai em diversas competições, enfrentando cada um que passa em seu camigo, corre até não aguentar mais");
+    alert("Depois de muito sofrimento, depois de muita batalha, tendo que sobreviver comendo migualhas, fugindo de policiais, tendo que andar descalço na areia quente do deserto e ser obrigado a ver coisas imaginaveis");
+    alert("Acumulando diversos tipos de emoções diferentes e aguentando psicologicamente");
+    mostrarInventario();
+    alert("Aprimorando suas habilidades");
+    character.atualizarInformacoes();
+    progressoPersonagem = 100;
+    alert(`Chegando no pico da sua vida: ${progressoPersonagem}`);
+    alert("Você finalmente chega no seu destino, o seu maior sonho");
+    alert("Os Jogos Olimpicos!")
+    alert("fim. Muito obrigado por jogar!")
+    menuGame();
 }
 
+// função para adicionar emoções ao inventario. A funçao ira verificar se ja possui um item no inventario, caso ja tenha o item, a função ira apenas acresentar uma quantidade a ele, caso o item nao exista, a função ira criar uma nova entrada para o item junto da quantidade expecificada
 function adicionarAoInventario(item, quantidade) {
     if (inventarioEmocoes[item]) {
         inventarioEmocoes[item] += quantidade;
@@ -653,6 +702,7 @@ function adicionarAoInventario(item, quantidade) {
     }
 }
 
+// função para exibir o conteudo do inventario. A função ira criar uma lista de string com todos os itens do inventarioEmocoes junto com suas quantidades
 function mostrarInventario() {
         let itens = "Itens no inventário:\n";
         for (let item in inventarioEmocoes) {
@@ -661,6 +711,7 @@ function mostrarInventario() {
         alert(itens);
 }
 
+// função para armazenar o item sanidade dentro do inventario das emoções
 function armazenarSanidade(quantidade) {
     const item = "Sanidade";
     if (inventarioEmocoes[item]) {
@@ -671,11 +722,13 @@ function armazenarSanidade(quantidade) {
     alert(`Sanidade atualizada: ${quantidade}`)
 } armazenarSanidade(50);
 
+// função para salvar o progresso da historia em determinados momentos caso o jogador decida ir para o menu
 function salvarCheckpoint(ponto) {
     checkpoint = ponto;
     alert(`Checkpoint salvo: ${checkpoint}`);
 }
 
+// função para carregar o checkpoints salvos. A funçao verifica se o checkpoint tem algo salvo, caso nao tenha ira informar, caso tenha a condicional ira verificar se a string corresponde com o nome de uma função global, se corresponder, ira executar a função
 function carregarCheckpoint() {
     if (checkpoint) {
         alert(`Carregando checkpoint: ${checkpoint}`);
@@ -687,6 +740,7 @@ function carregarCheckpoint() {
     }   
 }   
 
+// função para perguntar ao jogador se ele deseja voltar ao menu do jogo. Contem a condicional para a resposta do usuario
 function perguntarSeVoltarMenu() {
     let opcao = prompt("Deseja retornar ao menu? (sim) (nao)");
     if (opcao === "sim") {
@@ -696,12 +750,10 @@ function perguntarSeVoltarMenu() {
     } 
 }
 
+// função para armazenar o progresso ao decorrer do jogo
 function armazenarProgressoPersonagem(valor) {
-        progressoPersonagem += valor;
-        alert("Progresso do personagem salvo!");
-}
-
-function mostrarProgressoPersonagem() {
+    alert(`Progresso atualizado: ${valor}`);
+    progressoPersonagem += valor;
     alert(`Progresso do personagem: ${progressoPersonagem}`);
 }
 
