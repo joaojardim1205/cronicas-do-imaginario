@@ -449,7 +449,6 @@ function treinamentoMenu() {
             if (this.experienciaParaNivel >= ExpNecessario) {
                 this.nivel++;
                 this.experienciaParaNivel -= ExpNecessario;
-                this.aumentarSkillExpMultiplicador();
                 
                 alert(`${this.nome} subiu para o nível ${this.nivel}!`);
             }
